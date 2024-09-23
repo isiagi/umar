@@ -1,10 +1,10 @@
-import { MealCardsFilter } from "@/components/meal-cards-filter";
+import { CheckoutPageComponent } from "@/components/checkout-page";
 import React from "react";
 
 function page() {
   return (
     <div>
-      <MealCardsFilter />
+      <CheckoutPageComponent />
     </div>
   );
 }

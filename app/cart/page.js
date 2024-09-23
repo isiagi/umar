@@ -1,10 +1,10 @@
-import { MealCardsFilter } from "@/components/meal-cards-filter";
+import { CartPageComponent } from "@/components/cart-page";
 import React from "react";
 
 function page() {
   return (
     <div>
-      <MealCardsFilter />
+      <CartPageComponent />
     </div>
   );
 }
