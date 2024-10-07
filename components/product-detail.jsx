@@ -15,9 +15,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import useCartStore from "@/app/context/cartStore";
 
-export function ProductDetailComponent() {
+export function ProductDetailComponent({ data }) {
   const [quantity, setQuantity] = useState(1);
+
+  const addItem = useCartStore((state) => state.addItem);
+
+  console.log(data, "detail data");
 
   const product = {
     id: 1,
@@ -41,14 +46,16 @@ export function ProductDetailComponent() {
 
   return (
     <div className="container mx-auto px-4 pt-[10vh] md:pt-[15vh] pb-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
         <div className="space-y-4">
-          <div className="relative aspect-square">
+          <div className="relative">
             <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              className="rounded-lg object-cover"
+              src={data?.image}
+              alt={data?.name}
+              // fill
+              width={300}
+              height={700}
+              className="rounded-lg w-full object-cover"
             />
           </div>
           {/* <div className="grid grid-cols-4 gap-2">
@@ -66,9 +73,9 @@ export function ProductDetailComponent() {
             ))}
           </div> */}
         </div>
-        <div className="space-y-6">
+        <div className="space-y-3">
           <div>
-            <h1 className="text-3xl font-bold">{product.name}</h1>
+            <h1 className="text-3xl font-bold">{data?.name}</h1>
             {/* <div className="flex items-center space-x-2 mt-2">
               <div className="flex">
                 {[...Array(5)].map((_, i) => (
@@ -87,7 +94,7 @@ export function ProductDetailComponent() {
               </span>
             </div> */}
           </div>
-          <p className="text-2xl font-bold">${product.price.toFixed(2)}</p>
+          <p className="text-2xl font-bold">${data?.price.toFixed(2)}</p>
           <p className="text-muted-foreground">{product.description}</p>
           <div className="flex items-center space-x-2">
             <Button
@@ -105,7 +112,7 @@ export function ProductDetailComponent() {
               <Plus className="h-4 w-4" />
             </Button>
           </div>
-          <Button className="w-full" size="lg" onClick={addToBag}>
+          <Button className="w-full" size="lg" onClick={() => addItem(data)}>
             <ShoppingBag className="mr-2 h-5 w-5" /> Add to Bag
           </Button>
           <div className="space-y-2">

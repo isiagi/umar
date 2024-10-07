@@ -108,7 +108,7 @@ const menuData = [
   },
 ];
 
-export function MealCardsFilter() {
+export function MealCardsFilter({ data }) {
   const [cart, setCart] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
@@ -135,7 +135,7 @@ export function MealCardsFilter() {
     );
   };
 
-  const filteredMenu = menuData
+  const filteredMenu = data
     .filter(
       (category) =>
         selectedCategories.length === 0 ||
@@ -166,7 +166,7 @@ export function MealCardsFilter() {
               </SheetDescription>
             </SheetHeader>
             <ScrollArea className="h-[calc(100vh-200px)] mt-4">
-              {menuData.map((category, index) => (
+              {data.map((category, index) => (
                 <div key={index} className="mb-4">
                   <div className="flex items-center space-x-2">
                     <Checkbox
@@ -212,32 +212,35 @@ export function MealCardsFilter() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {subCategory.meals.map((meal, mealIndex) => (
                   <Card key={mealIndex} className="relative group">
-                    <CardHeader>
-                      <div className="relative overflow-hidden">
+                    <CardHeader className="p-4">
+                      <div className="relative overflow-hidden rounded-md">
                         <Image
                           src={
-                            "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGNoaWNrZW4lMjBjb29rZWR8ZW58MHx8MHx8fDA%3D"
+                            meal.image ||
+                            "https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg"
                           }
                           alt={"hello"}
                           width={500}
                           height={300}
-                          className="w-full h-52 object-cover overflow-hidden  group-hover:scale-110 transition"
+                          className="w-full h-60 object-cover overflow-hidden  group-hover:scale-110 group-hover:rounded-md transition rounded-md"
                         />
                       </div>
-                      <div className="pt-2">
-                        <h3 className="font-medium">{meal.name}</h3>
-                        <p className="text-xl font-semibold">
+                      <div className="pt-3">
+                        <h3 className="font-medium text-muted-foreground">
+                          {meal.name}
+                        </h3>
+                        <p className="text-xl font-semibold pt-3">
                           {meal.price} shs
                         </p>
                       </div>
                     </CardHeader>
 
-                    <CardFooter className="absolute bottom-[78px] top-6 right-0 hidden group-hover:flex group-hover:flex-col gap-4 justify-center bg-white/30 backdrop-blur-sm transition-all duration-300">
+                    <CardFooter className="absolute bottom-[78px] top-4 right-0 p-4 hidden group-hover:flex group-hover:flex-col gap-4 justify-center bg-white/30 backdrop-blur-sm transition-all duration-300">
                       <Button onClick={() => addItem(meal)} className="w-full">
                         <ShoppingBagIcon className="h-5 w-5" />
                       </Button>
 
-                      <Link href={`/menu/${meal.name}`} asChild>
+                      <Link href={`/menu/${meal.id}`} asChild>
                         <Button className="w-full">
                           <ViewIcon className="h-5 w-5" />
                         </Button>

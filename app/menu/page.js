@@ -1,12 +1,13 @@
 import { MealCardsFilter } from "@/components/meal-cards-filter";
+import { menuData } from "@/lib/data";
 import React from "react";
 
-function page() {
+function Page() {
   return (
-    <div>
-      <MealCardsFilter />
+    <div className="pt-[10vh] md:pt-[15vh]">
+      <MealCardsFilter data={menuData} />
     </div>
   );
 }
 
-export default page;
+export default Page;
