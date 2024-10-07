@@ -6,9 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Minus, Plus, Clock, Star } from "lucide-react";
 import Link from "next/link";
+import useCartStore from "@/app/context/cartStore";
 
 export function ProductDetailRedesign() {
   const [quantity, setQuantity] = useState(1);
+
+  const addItem = useCartStore((state) => state.addItem);
+  const removeItem = useCartStore((state) => state.removeItem);
 
   const incrementQuantity = () => setQuantity((prev) => prev + 1);
   const decrementQuantity = () => setQuantity((prev) => Math.max(1, prev - 1));
@@ -82,7 +86,18 @@ export function ProductDetailRedesign() {
                 </div>
               </div>
               <Link href="/cart" className="w-full">
-                <Button className="w-full bg-stone-800 hover:bg-stone-700 text-white">
+                <Button
+                  onClick={() =>
+                    addItem({
+                      name: "Full Chicken with Pilao",
+                      price: 40000,
+                      quantity: 0,
+                      image:
+                        "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGNoaWNrZW4lMjBjb29rZWR8ZW58MHx8MHx8fDA%3D",
+                    })
+                  }
+                  className="w-full bg-stone-800 hover:bg-stone-700 text-white"
+                >
                   Add to Cart - ${(12.99 * quantity).toFixed(2)}
                 </Button>
               </Link>

@@ -20,8 +20,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingBagIcon, ShoppingCart, ViewIcon } from "lucide-react";
 import Link from "next/link";
+import useCartStore from "@/app/context/cartStore";
 
 const menuData = [
   {
@@ -30,17 +31,53 @@ const menuData = [
       {
         name: "Chicken with Chips",
         meals: [
-          { name: "Full Chicken with Chips", price: 40000 },
-          { name: "Half Chicken with Chips", price: 30000 },
-          { name: "Plain Chips", price: 7000 },
+          {
+            name: "Full Chicken with Chips",
+            price: 40000,
+            quantity: 0,
+            image:
+              "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGNoaWNrZW4lMjBjb29rZWR8ZW58MHx8MHx8fDA%3D",
+          },
+          {
+            name: "Half Chicken with Chips",
+            price: 30000,
+            quantity: 0,
+            image:
+              "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGNoaWNrZW4lMjBjb29rZWR8ZW58MHx8MHx8fDA%3D",
+          },
+          {
+            name: "Plain Chips",
+            price: 7000,
+            quantity: 0,
+            image:
+              "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGNoaWNrZW4lMjBjb29rZWR8ZW58MHx8MHx8fDA%3D",
+          },
         ],
       },
       {
         name: "Chicken with Pilao",
         meals: [
-          { name: "Full Chicken with Pilao", price: 40000 },
-          { name: "Half Chicken with Pilao", price: 30000 },
-          { name: "Plain Pilao", price: 7000 },
+          {
+            name: "Full Chicken with Pilao",
+            price: 40000,
+            quantity: 0,
+            image:
+              "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGNoaWNrZW4lMjBjb29rZWR8ZW58MHx8MHx8fDA%3D",
+          },
+          {
+            name: "Half Chicken with Pilao",
+            price: 30000,
+            quantity: 0,
+            image:
+              "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGNoaWNrZW4lMjBjb29rZWR8ZW58MHx8MHx8fDA%3D",
+          },
+          {
+            name: "Plain Pilao",
+            price: 7000,
+            quantity: 0,
+            image:
+              "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGNoaWNrZW4lMjBjb29rZWR8ZW58MHx8MHx8fDA%3D",
+          },
         ],
       },
     ],
@@ -51,8 +88,20 @@ const menuData = [
       {
         name: "Tray Meals",
         meals: [
-          { name: "Tray Meal 1", price: 50000 },
-          { name: "Tray Meal 2", price: 60000 },
+          {
+            name: "Tray Meal 1",
+            price: 50000,
+            quantity: 0,
+            image:
+              "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGNoaWNrZW4lMjBjb29rZWR8ZW58MHx8MHx8fDA%3D",
+          },
+          {
+            name: "Tray Meal 2",
+            price: 60000,
+            quantity: 0,
+            image:
+              "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGNoaWNrZW4lMjBjb29rZWR8ZW58MHx8MHx8fDA%3D",
+          },
         ],
       },
     ],
@@ -63,6 +112,8 @@ export function MealCardsFilter() {
   const [cart, setCart] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
+
+  const addItem = useCartStore((state) => state.addItem);
 
   const addToCart = (meal) => {
     setCart([...cart, meal]);
@@ -160,38 +211,37 @@ export function MealCardsFilter() {
               <h3 className="text-lg font-medium mb-3">{subCategory.name}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {subCategory.meals.map((meal, mealIndex) => (
-                  <Card key={mealIndex}>
-                    <Link
-                      href={`/menu/${meal.name}`}
-                      className="w-full h-full"
-                      asChild
-                    >
-                      <CardHeader>
-                        <div className="relative">
-                          <Image
-                            src={
-                              "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGNoaWNrZW4lMjBjb29rZWR8ZW58MHx8MHx8fDA%3D"
-                            }
-                            alt={"hello"}
-                            width={500}
-                            height={300}
-                            className="w-full h-52 object-cover"
-                          />
-                        </div>
+                  <Card key={mealIndex} className="relative group">
+                    <CardHeader>
+                      <div className="relative overflow-hidden">
+                        <Image
+                          src={
+                            "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGNoaWNrZW4lMjBjb29rZWR8ZW58MHx8MHx8fDA%3D"
+                          }
+                          alt={"hello"}
+                          width={500}
+                          height={300}
+                          className="w-full h-52 object-cover overflow-hidden  group-hover:scale-110 transition"
+                        />
+                      </div>
+                      <div className="pt-2">
+                        <h3 className="font-medium">{meal.name}</h3>
+                        <p className="text-xl font-semibold">
+                          {meal.price} shs
+                        </p>
+                      </div>
+                    </CardHeader>
 
-                        <h3>{meal.name}</h3>
-                        <p className="">{meal.price} sh</p>
-                      </CardHeader>
-                    </Link>
-
-                    <CardFooter>
-                      <Button
-                        onClick={() => addToCart(meal)}
-                        className="w-full"
-                      >
-                        <ShoppingCart className="h-5 w-5" />
-                        Add to Cart
+                    <CardFooter className="absolute bottom-[78px] top-6 right-0 hidden group-hover:flex group-hover:flex-col gap-4 justify-center bg-white/30 backdrop-blur-sm transition-all duration-300">
+                      <Button onClick={() => addItem(meal)} className="w-full">
+                        <ShoppingBagIcon className="h-5 w-5" />
                       </Button>
+
+                      <Link href={`/menu/${meal.name}`} asChild>
+                        <Button className="w-full">
+                          <ViewIcon className="h-5 w-5" />
+                        </Button>
+                      </Link>
                     </CardFooter>
                   </Card>
                 ))}
