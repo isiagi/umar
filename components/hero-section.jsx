@@ -1,11 +1,14 @@
 "use client";
 
+import useCategoryStore from "@/app/context/categoryStore";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 
 export function HeroSectionComponent() {
+  const setCategoryName = useCategoryStore((state) => state.setCategoryName);
+
   return (
     <section className="relative h-[80vh] min-h-[600px] w-full overflow-hidden ">
       <Image
@@ -25,9 +28,12 @@ export function HeroSectionComponent() {
           Savor the finest chicken dishes, grilled to perfection and delivered
           fresh to your doorstep
         </p>
-        <div className="flex flex-wrap gap-4 mb-6">
-          <span className="bg-[#E6A23C] text-white px-3 py-1 rounded-full text-sm font-semibold">
-            Grilled Specialties
+        {/* <div className="flex flex-wrap gap-4 mb-6">
+          <span
+            onClick={() => setCategoryName("Ordinary")}
+            className="bg-[#E6A23C] text-white px-3 py-1 rounded-full text-sm font-semibold"
+          >
+            Ordinary
           </span>
           <span className="bg-[#E6A23C] text-white px-3 py-1 rounded-full text-sm font-semibold">
             Family Platters
@@ -35,7 +41,7 @@ export function HeroSectionComponent() {
           <span className="bg-[#E6A23C] text-white px-3 py-1 rounded-full text-sm font-semibold">
             Spicy Wings
           </span>
-        </div>
+        </div> */}
         <div className="flex flex-col sm:flex-row w-full max-w-md gap-4 mb-8">
           {/* <div className="relative flex-grow">
             <Input
