@@ -54,7 +54,7 @@ export function NavbarComponent() {
             </Link>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8">
-            <Link href="/" className="text-gray-600 hover:text-gray-900">
+            <Link href="/" className="text-[#E6A23C] hover:text-gray-900">
               Home
             </Link>
             <Link href="/menu" className="text-gray-600 hover:text-gray-900">
@@ -66,14 +66,14 @@ export function NavbarComponent() {
             >
               Reservations
             </Link> */}
-            <Link href="/about" className="text-gray-600 hover:text-gray-900">
-              About
+            <Link href="/admin" className="text-gray-600 hover:text-gray-900">
+              Admin
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="relative">
                   {/* <ShoppingCart className="h-5 w-5" /> */}
-                  <ShoppingBagIcon className="h-5 w-5" />
+                  <ShoppingBagIcon className="h-6 w-6 text-[#E6A23C]" />
                   {cartItems.length > 0 && (
                     <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                       {cartItems.length}

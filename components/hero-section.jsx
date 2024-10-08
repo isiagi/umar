@@ -16,15 +16,15 @@ export function HeroSectionComponent() {
         alt="Delicious grilled chicken dishes"
         width={1920}
         height={1080}
-        className="absolute inset-0 object-cover w-full h-full opacity-70"
+        className="absolute inset-0 object-cover w-full h-full opacity-90"
         priority
       />
-      {/* <div className="absolute inset-0 bg-gradient-to-r from-[#FFF8E1] to-transparent" /> */}
+      <div className="absolute inset-0 bg-black bg-blend-overlay bg-opacity-40" />
       <div className="relative h-full flex flex-col justify-center items-start text-[#4A3E2A] p-4 sm:p-6 lg:p-8 max-w-screen-xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 max-w-2xl">
-          Umar Chicken Master
+        <h1 className="text-4xl text-white sm:text-5xl lg:text-6xl font-bold mb-4 max-w-2xl">
+          Umar <span className="text-[#E6A23C]">Chicken </span> Master
         </h1>
-        <p className="text-xl sm:text-2xl mb-6 max-w-xl">
+        <p className="text-xl sm:text-2xl text-[#fbfbfb] mb-6 max-w-xl">
           Savor the finest chicken dishes, grilled to perfection and delivered
           fresh to your doorstep
         </p>
@@ -54,7 +54,7 @@ export function HeroSectionComponent() {
               size={20}
             />
           </div> */}
-          <Button className="bg-[#E6A23C] hover:bg-[#D48806] text-white">
+          <Button className="bg-[#E6A23C] hover:bg-[#D48806] text-white w-[50%]">
             <ShoppingBag className="mr-2 h-4 w-4" /> Order Now
           </Button>
         </div>

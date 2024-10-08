@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import useCartStore from "@/app/context/cartStore";
+import Link from "next/link";
 
 // Mock data for cart items
 const initialCartItems = [
@@ -46,16 +47,6 @@ const initialCartItems = [
 ];
 
 export function CartPageComponent() {
-  // const [cartItems, setCartItems] = useState(initialCartItems);
-
-  // const { cartItems, totalPrice, removeItem, clearCart } = useCartStore(
-  //   (state) => ({
-  //     cartItems: state.cartItems,
-  //     totalPrice: state.totalPrice,
-  //     removeItem: state.removeItem,
-  //     clearCart: state.clearCart,
-  //   })
-  // );
   const cartItems = useCartStore((state) => state.cartItems);
   const totalPrice = useCartStore((state) => state.totalPrice);
   const removeItem = useCartStore((state) => state.removeItem);
@@ -121,7 +112,7 @@ export function CartPageComponent() {
                     <p className="text-sm text-gray-500 mb-2">
                       {item.description}
                     </p>
-                    <p className="font-medium">${item.price.toFixed(2)}</p>
+                    <p className="font-medium">shs {item.price.toFixed(2)}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <Button
@@ -173,7 +164,9 @@ export function CartPageComponent() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">Proceed to Checkout</Button>
+              <Link href="/checkout" className="w-full">
+                <Button className="w-full">Proceed to Checkout</Button>
+              </Link>
             </CardFooter>
           </Card>
         </div>
