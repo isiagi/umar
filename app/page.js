@@ -1,12 +1,12 @@
 import { HeroSectionComponent } from "@/components/hero-section";
-import { NavbarComponent } from "@/components/navbar";
-import Image from "next/image";
+import { MealCards } from "@/components/meal-cards";
+import { menuData } from "@/lib/data";
 
 export default function Home() {
   return (
     <>
-      <NavbarComponent />
       <HeroSectionComponent />
+      <MealCards data={menuData} />
     </>
   );
 }
